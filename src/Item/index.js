@@ -2,16 +2,20 @@ const React = require('react');
 const styles = require('./Item.css');
 const createReactClass = require('create-react-class');
 
+
 const Item = createReactClass({
   getInitialState: function() {
-    return {message: 'Hello!'};
+    return({
+      name: ''
+    })
   },
 
   render: function () {
+    console.log(this.props);
     return (
       <li>
-        <button>{this.state.message}</button>
-      </li>     
+          <button>Test</button>
+      </li>
     );
   }
 });

@@ -1,43 +1,44 @@
 const React = require('react');
 const styles = require('./FilterItems.css');
 const Item = require('../Item');
-const date = require('../date.json');
+const data = require('../data.json');
 const createReactClass = require('create-react-class');
 
 const FilterItems = createReactClass({
 
- /* sizeObj: function(obj) {
-    let size = 0, key;
-    for(key in obj) {
-    if(obj.hasOwnProperty(key))
-    size++;
-    return size;
-  }*/
+  getPropertyName: function(obj) {
+    let propertyName = [];
 
-  testFunc: function() {
-    console.log("Here is the test message");
+    for(let key in obj) {
+      propertyName.push(key)
+    };
+
+    return propertyName;
+  },
+
+  getPropertyValue: function(obj, name) {
+      let objArray = [];
+
+        obj[name].map(function(item) {
+            objArray.push(item);
+        });
+
+      return objArray;
   },
 
   render: function () {
-    console.log(this.testFunc());
+    const getNames = this.getPropertyName(data);
+    const getValues = this.getPropertyValue;
+    const check = [];
+
     return (
       <section className='filter-items-list'>
           <ul className=''>
-            <li>
-               <Item />
-            </li>
-            <li>
-                <button>Test</button>
-            </li>
-            <li>
-                <button>Test</button>
-            </li>
-            <li>
-                <button>Test</button>
-            </li>
-            <li>
-                <button>Test</button>
-            </li>
+            {
+              getNames.map(function(item) {
+                return (<Item name={item} items={getValues(data, item)} />)
+              })
+            }
           </ul>
       </section>
     );

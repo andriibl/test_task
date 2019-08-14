@@ -1,46 +1,65 @@
 const React = require('react');
 const styles = require('./FilterItems.css');
-const Item = require('../Item');
-const data = require('../data.json');
+const Item = require('../Items');
 const createReactClass = require('create-react-class');
 
+
 const FilterItems = createReactClass({
-
-  getPropertyName: function(obj) {
-    let propertyName = [];
-
-    for(let key in obj) {
-      propertyName.push(key)
-    };
-
-    return propertyName;
+  getInitialState: function() {
+    return({
+      name: this.props.name,
+      isActive: false,
+      count: 0
+    })
   },
 
-  getPropertyValue: function(obj, name) {
-      let objArray = [];
+  capitalize: function(text){
+    if (typeof text !== 'string') {
+      return '';
+    } else {
+      return text.charAt(0).toUpperCase() + text.slice(1)  
+    }
+  },
 
-        obj[name].map(function(item) {
-            objArray.push(item);
-        });
+  openTooltipEvent: function() {
+    this.setState({
+      isActive: true
+    })
+  },
 
-      return objArray;
+  increaseCount: function(val) {
+    this.setState({
+      count: val
+    })
+  },
+
+  closeTooltipEvent: function() {
+    this.setState({
+      isActive: false
+    })
+  },
+
+  componentWillUpdate: function(nextProps, nextState) {
+    //console.log("Next",nextProps, "\nNState",nextState, "\nthisState",this.state);
   },
 
   render: function () {
-    const getNames = this.getPropertyName(data);
-    const getValues = this.getPropertyValue;
-    const check = [];
+    const self = this;
+    console.log("PROPS",this.state.count);
 
     return (
-      <section className='filter-items-list'>
-          <ul className=''>
+      <li onClick={this.openTooltipEvent} key={this.props.name}>
+          <button className='btn-filter'>{this.capitalize(this.props.name)} {this.state.count ? '('+this.state.count+')' : ''} </button>
+            <div className={this.state.isActive ? 'filter-lists active' : 'filter-lists'} >
             {
-              getNames.map(function(item) {
-                return (<Item name={item} items={getValues(data, item)} />)
+              this.props.items.map(function(item) {
+                return ( 
+                  <Item id={item.id} title={item.title} onIncreaseCount={self.increaseCount} />
+                )
               })
             }
-          </ul>
-      </section>
+            </div>
+      </li>
     );
   }
 });

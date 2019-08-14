@@ -1,6 +1,6 @@
 const React = require('react');
 const Header = require('../Header');
-const FilterItems = require('../FilterItems');
+const ListItems = require('../ListItems');
 const createReactClass = require('create-react-class');
 
 const App = createReactClass({
@@ -8,7 +8,7 @@ const App = createReactClass({
     return (
       <div className='App'>
         <Header />
-        <FilterItems />
+        <ListItems />
       </div>
     );
   }

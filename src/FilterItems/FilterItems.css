@@ -14,3 +14,31 @@ button:hover {
 	cursor: pointer;
 	transition: all 0.3s;
 }
+
+.filter-items-list ul > li {
+  position: relative;
+}
+.filter-items-list ul > li > .filter-lists {
+  display: none;
+  position: absolute;
+  top: 60px;
+  border: 1px solid black;
+  width: 250px;
+  padding: 10px;
+}
+
+.filter-items-list ul > li > .filter-lists.active {
+	display: block;
+}
+
+.filter-items-list ul > li > button::after {
+	content: '';
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 46px;
+    left: 30%;
+    border-left: 6.25px solid transparent;
+    border-right: 6.25px solid transparent;
+    border-bottom: 12.5px solid black;
+}

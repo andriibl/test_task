@@ -1,5 +1,5 @@
 const React = require('react');
-const styles = require('./Items.css');
+require('./Items.css');
 const createReactClass = require('create-react-class');
 
 
@@ -7,18 +7,15 @@ const Items = createReactClass({
   getInitialState: function() {
     return({
       name: this.props.name,
-      isClick: false,
       count: 0
     })
   },
 
   clickBtnEvent: function() {
     this.setState({
-      isClick: true,
       count: this.state.count += 1
     })
-    console.log(this.state.count);
-    this.props.onIncreaseCount(this.state.count);
+    //this.props.onIncreaseCount(this.state.count);
   },
 
   closeTooltipEvent: function() {
@@ -28,14 +25,18 @@ const Items = createReactClass({
   },
 
   componentWillUpdate: function(nextProps, nextState) {
-    //console.log("Next",nextProps, "\nNState",nextState, "\nthisState",this.state);
     
   },
 
   render: function () {
-    const self = this;
+    console.log(this.state.isSelecet);
     return (
-      <button onClick={this.clickBtnEvent} className={this.state.isClick ? 'filter-item click' : 'filter-item'} data-id={this.props.id}>{this.props.title}</button> 
+      <button onClick={this.props.increaseCount} 
+        disabled={this.props.isSelecet ? 'disabled' : ''} 
+        className={this.props.isSelecet ? 'filter-item click' : 'filter-item'} 
+        data-id={this.props.id}>
+        {this.props.title}
+      </button> 
     );
   }
 });

@@ -1,5 +1,5 @@
 const React = require('react');
-const styles = require('./FilterItems.css');
+require('./FilterItems.css');
 const Item = require('../Items');
 const createReactClass = require('create-react-class');
 
@@ -9,6 +9,8 @@ const FilterItems = createReactClass({
     return({
       name: this.props.name,
       isActive: false,
+      isClick: false,
+      isSelecet: false,
       count: 0
     })
   },
@@ -23,15 +25,18 @@ const FilterItems = createReactClass({
 
   openTooltipEvent: function() {
     this.setState({
-      isActive: true
+      isActive: true,
+      isClick: true,
     })
   },
 
-  increaseCount: function(val) {
+  increaseCount: function() {
     this.setState({
-      count: val
+      count: this.state.count += 1,
+      isSelecet: true
     })
   },
+
 
   closeTooltipEvent: function() {
     this.setState({
@@ -45,16 +50,14 @@ const FilterItems = createReactClass({
 
   render: function () {
     const self = this;
-    console.log("PROPS",this.state.count);
-
     return (
-      <li onClick={this.openTooltipEvent} key={this.props.name}>
-          <button className='btn-filter'>{this.capitalize(this.props.name)} {this.state.count ? '('+this.state.count+')' : ''} </button>
+      <li key={this.props.name}>
+          <button onClick={this.openTooltipEvent} className={this.state.isClick ? 'btn-filter click' : 'btn-filter' }>{this.capitalize(this.props.name)} {this.state.count ? '('+this.state.count+')' : ''} </button>
             <div className={this.state.isActive ? 'filter-lists active' : 'filter-lists'} >
             {
               this.props.items.map(function(item) {
                 return ( 
-                  <Item id={item.id} title={item.title} onIncreaseCount={self.increaseCount} />
+                  <Item id={item.id} title={item.title} increaseCount={self.increaseCount} isClick={self.state.isSelecet} />
                 )
               })
             }

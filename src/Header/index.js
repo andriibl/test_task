@@ -1,5 +1,5 @@
 const React = require('react');
-const styles = require('./Header.css');
+require('./Header.css');
 const logo = require('../images/logo.png');
 const createReactClass = require('create-react-class');
 

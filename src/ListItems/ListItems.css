@@ -14,3 +14,7 @@ button:hover {
 	cursor: pointer;
 	transition: all 0.3s;
 }
+
+.filter-items-list ul > li > .btn-filter.click {
+  border: 1px solid red;
+}

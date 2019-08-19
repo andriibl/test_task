@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "babel-eslint": "^10.0.2",
+    "create-react-class": "^15.6.3",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-portal-tooltip": "^2.4.7",
     "react-scripts": "3.1.0"
   },
   "scripts": {

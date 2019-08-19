@@ -10,7 +10,7 @@ const FilterItems = createReactClass({
       name: this.props.name,
       isActive: false,
       isClick: false,
-      isSelecet: false,
+      isSelecet: true,
       count: 0
     })
   },
@@ -24,19 +24,30 @@ const FilterItems = createReactClass({
   },
 
   openTooltipEvent: function() {
-    this.setState({
+    /*this.setState({
       isActive: true,
       isClick: true,
-    })
+    })*/
+  this.setState(function(prevState) {
+    return {
+    isActive: !prevState.isActive,
+    isClick: true  
+    }
+  })
   },
 
   increaseCount: function() {
     this.setState({
-      count: this.state.count += 1,
-      isSelecet: true
+      count: this.state.count += 1
     })
   },
 
+  resetIsClick: function() {
+    this.setState({
+      count: 0,
+      isSelecet: false
+    })
+  },
 
   closeTooltipEvent: function() {
     this.setState({
@@ -45,10 +56,11 @@ const FilterItems = createReactClass({
   },
 
   componentWillUpdate: function(nextProps, nextState) {
-    //console.log("Next",nextProps, "\nNState",nextState, "\nthisState",this.state);
+    //console.log("\nNState",nextState.isActive, "\nthisState",this.state.isActive);
   },
 
   render: function () {
+    console.log(this.state.isActive);
     const self = this;
     return (
       <li key={this.props.name}>
@@ -57,10 +69,14 @@ const FilterItems = createReactClass({
             {
               this.props.items.map(function(item) {
                 return ( 
-                  <Item id={item.id} title={item.title} increaseCount={self.increaseCount} isClick={self.state.isSelecet} />
+                  <Item id={item.id} title={item.title} increaseCount={self.increaseCount} isSelect={self.state.isSelect} />
                 )
               })
             }
+            <div>
+              <button onClick={this.resetIsClick}> Cancel </button> 
+            </div>
+            <div><button> Apply </button> </div>
             </div>
       </li>
     );

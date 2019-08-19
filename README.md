@@ -1,5 +1,16 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+##Start project
+
+If you need to install this project, please run this command `yarn install`. After that you need to run 
+the project, `npm start` and it will automatically open the page in your browser   
+
+Hope you will not have any issues with that, otherwise feel free to ask me of any issues that you will have 
+
+Good luck!
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:

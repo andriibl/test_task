@@ -10,8 +10,9 @@ const FilterItems = createReactClass({
       name: this.props.name,
       isActive: false,
       isClick: false,
-      isSelecet: true,
-      count: 0
+      isSelect: true,
+      count: 0,
+      isShow: false
     })
   },
 
@@ -24,14 +25,9 @@ const FilterItems = createReactClass({
   },
 
   openTooltipEvent: function() {
-    /*this.setState({
-      isActive: true,
-      isClick: true,
-    })*/
   this.setState(function(prevState) {
     return {
-    isActive: !prevState.isActive,
-    isClick: true  
+    isClick: !prevState.isClick  
     }
   })
   },
@@ -42,34 +38,49 @@ const FilterItems = createReactClass({
     })
   },
 
+  decreaseCount: function() {
+    this.setState({
+      count: this.state.count -= 1
+    })
+  },
+
   resetIsClick: function() {
     this.setState({
       count: 0,
-      isSelecet: false
+      isSelect: false
     })
   },
 
-  closeTooltipEvent: function() {
+  componentDidMount: function() {
+    //console.log("MOUNT", this.state.isShow)
     this.setState({
-      isActive: false
+      isShow: true
     })
   },
 
-  componentWillUpdate: function(nextProps, nextState) {
-    //console.log("\nNState",nextState.isActive, "\nthisState",this.state.isActive);
+  componenDidUnmount: function() {
+    //console.log("UNMOUNT", this.state.isShow)
+    this.setState({
+      isShow: false
+    })
   },
 
   render: function () {
-    console.log(this.state.isActive);
+    //console.log("RENDER", this.state.isShow)
     const self = this;
     return (
       <li key={this.props.name}>
           <button onClick={this.openTooltipEvent} className={this.state.isClick ? 'btn-filter click' : 'btn-filter' }>{this.capitalize(this.props.name)} {this.state.count ? '('+this.state.count+')' : ''} </button>
-            <div className={this.state.isActive ? 'filter-lists active' : 'filter-lists'} >
+            <div className={this.state.isClick ? 'filter-lists active' : 'filter-lists'} >
             {
               this.props.items.map(function(item) {
                 return ( 
-                  <Item id={item.id} title={item.title} increaseCount={self.increaseCount} isSelect={self.state.isSelect} />
+                  <Item 
+                    id={item.id} 
+                    title={item.title} 
+                    increaseCount={self.increaseCount}
+                    decreaseCount={self.decreaseCount}  
+                    isSelect={self.state.isSelect} />
                 )
               })
             }

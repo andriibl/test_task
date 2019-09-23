@@ -14,7 +14,7 @@
 	display: block;
 }
 
-.filter-items-list ul > li > button::after {
+.filter-items-list ul > li > button.click::after {
 	content: '';
     width: 0;
     height: 0;

@@ -12,11 +12,20 @@ const Items = createReactClass({
     })
   },
 
-  clickBtnEvent: function() {
+  clickBtnEvent: function(e) {
     this.setState({
       isClick: true
     })
-    this.props.increaseCount();
+    if(this.state.isClick) {
+       this.setState({isClick: false})
+       e.preventDefault();
+       if(!this.props.isSelect) {
+        this.props.increaseCount();  
+      } else 
+       this.props.decreaseCount();
+    } else {
+      this.props.increaseCount();
+    }
   },
 
   closeTooltipEvent: function() {
@@ -26,28 +35,23 @@ const Items = createReactClass({
   },
 
   resetHighlight: function() {
-    if(!this.props.isSelect) {
-      this.setState({
-        isClick: false
-      })
-    } else {
-      this.setState({
-        isClick: true
-      })
-    }
+    this.setState({
+        isClick: this.props.isSelect
+    })
   },
 
-  componentWillUpdate: function(nextProps, nextState) {
-
+  componentDidUpdate: function(nextProps, nextState) {
+  
   },
 
   render: function () {
+    console.log("IS",this.state.isClick)
     const isClick = this.state.isClick ? 'filter-item click' : 'filter-item';
+    const self = this;
 
     return (
-      <button onClick={this.clickBtnEvent} 
-        disabled={this.state.isClick ? 'disabled' : ''} 
-        className={this.state.isClick ? 'filter-item click' : 'filter-item'} 
+      <button onClick={function(e) {self.clickBtnEvent(e)}} 
+        className={isClick} 
         data-id={this.props.id}>
         {this.props.title}
       </button> 
